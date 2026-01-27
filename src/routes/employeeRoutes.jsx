@@ -7,6 +7,7 @@ import TimeTracking from '../pages/employee/TimeTracking';
 import LeaveManagement from '../pages/employee/LeaveManagement';
 import MyProfile from '../pages/employee/MyProfile';
 import MyAttendance from '@/pages/employee/MyAttendance';
+import RaiseTicket from '@/pages/employee/RaiseTicket';
 
 const EmployeeRoutes = () => {
     return (
@@ -17,6 +18,7 @@ const EmployeeRoutes = () => {
             <Route path="time-tracking" element={<TimeTracking />} />
             <Route path="my-tasks" element={<MyTasks />} />
             <Route path="leave" element={<LeaveManagement />} />
+            <Route path="raise-ticket" element={<RaiseTicket />} />
             <Route path="profile" element={<MyProfile />} />
         </Routes>
     );

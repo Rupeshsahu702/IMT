@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import {
     Select,
     SelectTrigger,
@@ -32,9 +34,21 @@ import {
     Send,
     ChevronDown,
     Briefcase,
+    CheckCircle,
 } from "lucide-react";
 
 export default function LeaveManagement() {
+    const { toast } = useToast();
+
+    const handleSubmit = () => {
+        toast({
+            title: "Leave Application Submitted",
+            description: "Your leave request has been sent to your manager for approval.",
+            className: "bg-green-50 border-green-200",
+            action: <CheckCircle className="h-5 w-5 text-green-600" />,
+        });
+    };
+
     return (
         <div className="p-6 bg-slate-50 min-h-screen space-y-5">
             {/* BREADCRUMB */}
@@ -119,7 +133,10 @@ export default function LeaveManagement() {
                         </Alert>
 
                         <div className="flex justify-center">
-                            <Button className="bg-blue-600 hover:bg-blue-700 gap-2 px-8">
+                            <Button 
+                                className="bg-blue-600 hover:bg-blue-700 gap-2 px-8"
+                                onClick={handleSubmit}
+                            >
                                 <Send className="h-4 w-4" />
                                 Submit Application
                             </Button>
@@ -191,6 +208,7 @@ export default function LeaveManagement() {
                     </Card>
                 </div>
             </div>
+            <Toaster />
         </div>
     );
 }

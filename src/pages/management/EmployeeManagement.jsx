@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     Card,
     CardContent,
@@ -41,6 +42,7 @@ import {
 } from "lucide-react";
 
 export default function EmployeeManagement() {
+    const navigate = useNavigate();
     const [searchQuery, setSearchQuery] = useState("");
     const [departmentFilter, setDepartmentFilter] = useState("all");
     const [statusFilter, setStatusFilter] = useState("all");
@@ -210,7 +212,10 @@ export default function EmployeeManagement() {
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end" className="w-48">
-                                                <DropdownMenuItem className="cursor-pointer">
+                                                <DropdownMenuItem 
+                                                    className="cursor-pointer"
+                                                    onClick={() => navigate('/management/employee-detail')}
+                                                >
                                                     <Eye className="h-4 w-4 mr-2 text-gray-600" />
                                                     <span>View Details</span>
                                                 </DropdownMenuItem>

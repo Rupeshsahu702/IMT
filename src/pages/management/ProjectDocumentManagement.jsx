@@ -8,6 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import {
     Upload,
@@ -21,12 +27,28 @@ import {
     AlertCircle,
     Lock,
     ChevronDown,
+    MoreHorizontal,
+    Pencil,
+    Trash2,
 } from "lucide-react";
 
 import UploadProjectDocumentModal from "./UploadProjectDocumentModal";
+import AssignDocumentAccessModal from "./AssignDocumentAccessModal";
 
 export default function ProjectDocumentManagement() {
     const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedDocument, setSelectedDocument] = useState(null);
+
+    const handleEditClick = (doc) => {
+        setSelectedDocument(doc);
+        setIsEditModalOpen(true);
+    };
+
+    const handleDeleteClick = (doc) => {
+        // Handle delete logic here
+        console.log("Delete document:", doc);
+    };
 
     return (
         <div className="p-8 bg-slate-50 min-h-screen">
@@ -122,6 +144,8 @@ export default function ProjectDocumentManagement() {
                             { name: "DEVOPS", color: "bg-violet-200", textColor: "text-violet-900" },
                             { name: "SECURITY", color: "bg-green-200", textColor: "text-green-700" }
                         ]}
+                        onEdit={handleEditClick}
+                        onDelete={handleDeleteClick}
                     />
                     <DocRow
                         project="Mobile UI Kit Refactor"
@@ -132,6 +156,8 @@ export default function ProjectDocumentManagement() {
                         teams={[
                             { name: "DESIGN", color: "bg-indigo-100", textColor: "text-indigo-700" }
                         ]}
+                        onEdit={handleEditClick}
+                        onDelete={handleDeleteClick}
                     />
                     <DocRow
                         project="API Integration v4"
@@ -143,6 +169,8 @@ export default function ProjectDocumentManagement() {
                             { name: "BACKEND", color: "bg-blue-100", textColor: "text-blue-600" },
                             { name: "QA", color: "bg-amber-100", textColor: "text-amber-600" }
                         ]}
+                        onEdit={handleEditClick}
+                        onDelete={handleDeleteClick}
                         isLast
                     />
 
@@ -166,6 +194,12 @@ export default function ProjectDocumentManagement() {
                 open={isUploadModalOpen}
                 onOpenChange={setIsUploadModalOpen}
             />
+
+            {/* EDIT/ASSIGN ACCESS MODAL */}
+            <AssignDocumentAccessModal
+                open={isEditModalOpen}
+                onOpenChange={setIsEditModalOpen}
+            />
         </div>
     );
 }
@@ -184,7 +218,7 @@ const StatCard = ({ icon, label, value }) => (
     </Card>
 );
 
-const DocRow = ({ project, client, doc, docType, date, teams, isLast }) => {
+const DocRow = ({ project, client, doc, docType, date, teams, isLast, onEdit, onDelete }) => {
     const getDocIcon = () => {
         switch (docType) {
             case "pdf":
@@ -195,6 +229,8 @@ const DocRow = ({ project, client, doc, docType, date, teams, isLast }) => {
                 return <FileText className="h-4 w-4 text-blue-500" />;
         }
     };
+
+    const documentData = { project, client, doc, docType, date, teams };
 
     return (
         <div className={`grid grid-cols-6 gap-4 px-6 py-5 items-center hover:bg-gray-50/50 ${!isLast ? 'border-b border-gray-100' : ''}`}>
@@ -228,11 +264,31 @@ const DocRow = ({ project, client, doc, docType, date, teams, isLast }) => {
                 ))}
             </div>
 
-            {/* Actions */}
+            {/* Actions - Dropdown Menu */}
             <div className="text-right">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600">
-                    •••
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600">
+                            <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                        <DropdownMenuItem
+                            onClick={() => onEdit && onEdit(documentData)}
+                            className="cursor-pointer"
+                        >
+                            <Pencil className="h-4 w-4 mr-2" />
+                            Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            onClick={() => onDelete && onDelete(documentData)}
+                            className="cursor-pointer text-red-600 focus:text-red-600"
+                        >
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            Delete
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         </div>
     );

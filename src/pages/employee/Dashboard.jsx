@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +17,43 @@ import {
 } from "lucide-react";
 
 export default function Dashboard() {
+    const [tasks, setTasks] = useState([
+        {
+            id: 1,
+            title: "Update UI Components for Dashboard",
+            meta: "Due Today • Design System",
+            status: "High Priority",
+            completed: false
+        },
+        {
+            id: 2,
+            title: "Review PR #402 from Frontend Team",
+            meta: "Due Tomorrow • Development",
+            status: "In Progress",
+            completed: false
+        },
+        {
+            id: 3,
+            title: "Prepare Q3 Productivity Report",
+            meta: "Due Fri, Oct 24 • Management",
+            status: "Pending",
+            completed: false
+        },
+        {
+            id: 4,
+            title: "Client Meeting Notes Distribution",
+            meta: "Completed Yesterday",
+            status: "Done",
+            completed: true
+        }
+    ]);
+
+    const toggleTask = (id) => {
+        setTasks(tasks.map(task => 
+            task.id === id ? { ...task, completed: !task.completed } : task
+        ));
+    };
+
     return (
         <div className="p-6 bg-slate-50 min-h-screen space-y-4">
             {/* TOP ROW: Header + Stats */}
@@ -43,29 +81,29 @@ export default function Dashboard() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 {/* Timer Card */}
                 <Card className="lg:col-span-2">
-                    <CardContent className="p-6 flex items-center justify-between">
+                    <CardContent className="p-4 flex items-center justify-between">
                         <div>
-                            <div className="flex items-center gap-2 text-green-600 text-xs font-semibold uppercase tracking-wide mb-2">
+                            <div className="flex items-center gap-2 text-green-600 text-xs font-semibold uppercase tracking-wide mb-3">
                                 <span className="h-2 w-2 rounded-full bg-green-500" />
                                 Currently Working
                             </div>
 
-                            <div className="flex items-baseline gap-1">
+                            <div className="flex items-baseline gap-2">
                                 <TimeBlock value="04" label="HRS" />
-                                <span className="text-4xl font-bold text-gray-300 mx-1">:</span>
+                                <span className="text-3xl font-bold text-gray-300">:</span>
                                 <TimeBlock value="12" label="MIN" />
-                                <span className="text-4xl font-bold text-gray-300 mx-1">:</span>
+                                <span className="text-3xl font-bold text-gray-300">:</span>
                                 <TimeBlock value="35" label="SEC" />
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2">
-                            <Button className="bg-blue-500 hover:bg-blue-600">
-                                <Coffee className="h-4 w-4 mr-2" />
+                        <div className="flex flex-col gap-3">
+                            <Button className="bg-blue-500 hover:bg-blue-600 h-12 px-6 text-base">
+                                <Coffee className="h-5 w-5 mr-2" />
                                 Start Break
                             </Button>
-                            <Button variant="outline" className="text-red-500 border-red-200 hover:bg-red-50">
-                                <LogOut className="h-4 w-4 mr-2" />
+                            <Button variant="outline" className="text-red-500 border-red-200 hover:bg-red-50 h-12 px-6 text-base">
+                                <LogOut className="h-5 w-5 mr-2" />
                                 Clock Out
                             </Button>
                         </div>
@@ -102,27 +140,16 @@ export default function Dashboard() {
                     </CardHeader>
 
                     <CardContent className="p-4 space-y-3">
-                        <TaskItem
-                            title="Update UI Components for Dashboard"
-                            meta="Due Today • Design System"
-                            status="High Priority"
-                        />
-                        <TaskItem
-                            title="Review PR #402 from Frontend Team"
-                            meta="Due Tomorrow • Development"
-                            status="In Progress"
-                        />
-                        <TaskItem
-                            title="Prepare Q3 Productivity Report"
-                            meta="Due Fri, Oct 24 • Management"
-                            status="Pending"
-                        />
-                        <TaskItem
-                            title="Client Meeting Notes Distribution"
-                            meta="Completed Yesterday"
-                            status="Done"
-                            completed
-                        />
+                        {tasks.map((task) => (
+                            <TaskItem
+                                key={task.id}
+                                title={task.title}
+                                meta={task.meta}
+                                status={task.status}
+                                completed={task.completed}
+                                onToggle={() => toggleTask(task.id)}
+                            />
+                        ))}
                     </CardContent>
                 </Card>
 
@@ -163,8 +190,8 @@ export default function Dashboard() {
 
 const TimeBlock = ({ value, label }) => (
     <div className="text-center">
-        <p className="text-5xl font-bold text-gray-900">{value}</p>
-        <p className="text-xs text-gray-400 uppercase">{label}</p>
+        <p className="text-6xl font-bold text-gray-900">{value}</p>
+        <p className="text-xs text-gray-400 uppercase tracking-wide">{label}</p>
     </div>
 );
 
@@ -180,7 +207,7 @@ const MiniStat = ({ icon, label, value, bgColor }) => (
     </Card>
 );
 
-const TaskItem = ({ title, meta, status, completed }) => {
+const TaskItem = ({ title, meta, status, completed, onToggle }) => {
     const statusStyles = {
         "High Priority": "bg-red-500 text-white",
         "In Progress": "bg-blue-100 text-blue-700",
@@ -190,7 +217,7 @@ const TaskItem = ({ title, meta, status, completed }) => {
 
     return (
         <div className="flex items-start gap-3">
-            <Checkbox checked={completed} className="mt-1" />
+            <Checkbox checked={completed} onCheckedChange={onToggle} className="mt-1" />
             <div className="flex-1">
                 <p className={`text-sm font-medium ${completed ? "line-through text-gray-400" : "text-gray-900"}`}>
                     {title}

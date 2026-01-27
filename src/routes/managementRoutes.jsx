@@ -12,12 +12,15 @@ import Payroll from '@/pages/management/Payroll';
 import LeaveApprovals from '@/pages/management/LeaveApprovals';
 import Incentives from '@/pages/management/Incentives';
 import ProjectDocumentManagement from '@/pages/management/ProjectDocumentManagement';
+import TicketResolve from '@/pages/management/TicketResolve';
+import EmployeeDetailsAdmin from '@/pages/management/EmployeeDetails';
 
 const ManagementRoutes = () => {
     return (
         <Routes>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="employees" element={<EmployeeManagement />} />
+            <Route path="employee-detail" element={<EmployeeDetailsAdmin />} />
             <Route path="addemployee" element={<AddEmployee />} />
             <Route path="attendance" element={<Attendance />} />
             <Route path="tasks" element={<TaskManagement />} />
@@ -27,6 +30,7 @@ const ManagementRoutes = () => {
             <Route path="reports" element={<Reports />} />
             <Route path="performance" element={<TeamPerformance />} />
             <Route path="project-document-management" element={<ProjectDocumentManagement />} />
+            <Route path="ticket-resolve" element={<TicketResolve />} />
         </Routes>
     );
 };
