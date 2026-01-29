@@ -8,6 +8,7 @@ import LeaveManagement from '../pages/employee/LeaveManagement';
 import MyProfile from '../pages/employee/MyProfile';
 import MyAttendance from '@/pages/employee/MyAttendance';
 import RaiseTicket from '@/pages/employee/RaiseTicket';
+import MyIncentive from '@/pages/employee/MyIncentive';
 
 const EmployeeRoutes = () => {
     return (
@@ -19,6 +20,7 @@ const EmployeeRoutes = () => {
             <Route path="my-tasks" element={<MyTasks />} />
             <Route path="leave" element={<LeaveManagement />} />
             <Route path="raise-ticket" element={<RaiseTicket />} />
+            <Route path="myincentive" element={<MyIncentive />} />
             <Route path="profile" element={<MyProfile />} />
         </Routes>
     );

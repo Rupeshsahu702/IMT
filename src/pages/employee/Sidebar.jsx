@@ -9,6 +9,7 @@ import {
     FiSettings,
     FiHelpCircle,
     FiMessageSquare,
+    FiAward,
 } from "react-icons/fi";
 
 const Sidebar = () => {
@@ -29,6 +30,7 @@ const Sidebar = () => {
                     <SidebarItem icon={<FiCalendar />} label="My Attendance" to="/employee/my-attendance" />
                     <SidebarItem icon={<FiClock />} label="Time Tracking" to="/employee/time-tracking" />
                     <SidebarItem icon={<FiFileText />} label="Leave Management" to="/employee/leave" />
+                    <SidebarItem icon={<FiAward />} label="My Incentive" to="/employee/myincentive" />
                     <SidebarItem icon={<FiMessageSquare />} label="Raise Ticket" to="/employee/raise-ticket" />
                     <SidebarItem icon={<FiUser />} label="My Profile" to="/employee/profile" />
 

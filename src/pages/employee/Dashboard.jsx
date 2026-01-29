@@ -55,63 +55,59 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="p-6 bg-slate-50 min-h-screen space-y-4">
-            {/* TOP ROW: Header + Stats */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {/* LEFT: Header */}
-                <div className="lg:col-span-2">
-                    <h1 className="text-4xl font-bold text-gray-900">Good Morning, Alex</h1>
-                    <p className="text-sm text-gray-500 italic mt-1">
-                        Here is your daily activity overview.
-                    </p>
+        <div className="p-8 bg-gray-50 min-h-screen space-y-6">
+            {/* TOP SECTION: Header + Timer + Stats */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* LEFT SIDE: Header and Timer */}
+                <div className="lg:col-span-2 space-y-6">
+                    {/* Header */}
+                    <div>
+                        <h1 className="text-3xl font-bold text-gray-900">Good Morning, Alex</h1>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Here is your daily activity overview.
+                        </p>
+                    </div>
+
+                    {/* Timer Card */}
+                    <Card className="shadow-sm border-gray-200">
+                        <CardContent className="p-6">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <div className="flex items-center gap-2 text-green-600 text-xs font-semibold uppercase tracking-wider mb-4">
+                                        <span className="h-2 w-2 rounded-full bg-green-500" />
+                                        Currently Working
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                        <TimeBlock value="04" label="HRS" />
+                                        <TimeBlock value="12" label="MIN" />
+                                        <TimeBlock value="35" label="SEC" />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-3">
+                                    <Button className="bg-blue-600 hover:bg-blue-700 h-11 px-6 text-sm font-medium shadow-sm">
+                                        <Coffee className="h-4 w-4 mr-2" />
+                                        Start Break
+                                    </Button>
+                                    <Button variant="outline" className="text-red-600 border-red-300 hover:bg-red-50 h-11 px-6 text-sm font-medium">
+                                        <LogOut className="h-4 w-4 mr-2" />
+                                        Clock Out
+                                    </Button>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
                 </div>
 
-                {/* RIGHT: Side Stats */}
-                <div className="flex flex-col gap-2">
+                {/* RIGHT SIDE: Stats */}
+                <div className="flex flex-col gap-4">
                     <MiniStat
                         icon={<Clock className="h-5 w-5 text-blue-600" />}
                         label="Weekly Hours"
                         value="32.5h"
                         bgColor="bg-blue-50"
                     />
-                </div>
-            </div>
-
-            {/* TIMER ROW */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                {/* Timer Card */}
-                <Card className="lg:col-span-2">
-                    <CardContent className="p-4 flex items-center justify-between">
-                        <div>
-                            <div className="flex items-center gap-2 text-green-600 text-xs font-semibold uppercase tracking-wide mb-3">
-                                <span className="h-2 w-2 rounded-full bg-green-500" />
-                                Currently Working
-                            </div>
-
-                            <div className="flex items-baseline gap-2">
-                                <TimeBlock value="04" label="HRS" />
-                                <span className="text-3xl font-bold text-gray-300">:</span>
-                                <TimeBlock value="12" label="MIN" />
-                                <span className="text-3xl font-bold text-gray-300">:</span>
-                                <TimeBlock value="35" label="SEC" />
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-3">
-                            <Button className="bg-blue-500 hover:bg-blue-600 h-12 px-6 text-base">
-                                <Coffee className="h-5 w-5 mr-2" />
-                                Start Break
-                            </Button>
-                            <Button variant="outline" className="text-red-500 border-red-200 hover:bg-red-50 h-12 px-6 text-base">
-                                <LogOut className="h-5 w-5 mr-2" />
-                                Clock Out
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                {/* More Stats */}
-                <div className="flex flex-col gap-2">
                     <MiniStat
                         icon={<Timer className="h-5 w-5 text-orange-500" />}
                         label="Break Time Today"
@@ -127,19 +123,21 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* BOTTOM ROW */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            {/* BOTTOM SECTION: Tasks + Announcements */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* ASSIGNED TASKS */}
-                <Card className="lg:col-span-2">
-                    <CardHeader className="flex flex-row items-center justify-between py-3 px-4 border-b">
-                        <CardTitle className="flex items-center gap-2 text-base">
-                            <CheckSquare className="h-4 w-4 text-blue-600" />
+                <Card className="lg:col-span-2 shadow-sm border-gray-200">
+                    <CardHeader className="flex flex-row items-center justify-between py-4 px-6 border-b border-gray-100">
+                        <CardTitle className="flex items-center gap-2 text-base font-semibold text-gray-900">
+                            <CheckSquare className="h-5 w-5 text-blue-600" />
                             Assigned Tasks
                         </CardTitle>
-                        <Button variant="link" size="sm" className="text-blue-600">View All</Button>
+                        <Button variant="link" size="sm" className="text-blue-600 hover:text-blue-700 font-medium h-auto p-0">
+                            View All
+                        </Button>
                     </CardHeader>
 
-                    <CardContent className="p-4 space-y-3">
+                    <CardContent className="p-6 space-y-4">
                         {tasks.map((task) => (
                             <TaskItem
                                 key={task.id}
@@ -154,19 +152,19 @@ export default function Dashboard() {
                 </Card>
 
                 {/* ANNOUNCEMENTS */}
-                <Card>
-                    <CardHeader className="py-3 px-4 border-b">
-                        <CardTitle className="flex items-center gap-2 text-base">
-                            <Megaphone className="h-4 w-4 text-orange-500" />
+                <Card className="shadow-sm border-gray-200">
+                    <CardHeader className="py-4 px-6 border-b border-gray-100">
+                        <CardTitle className="flex items-center gap-2 text-base font-semibold text-gray-900">
+                            <Megaphone className="h-5 w-5 text-orange-500" />
                             Announcements
                         </CardTitle>
                     </CardHeader>
 
-                    <CardContent className="p-4 space-y-4">
+                    <CardContent className="p-6 space-y-5">
                         <Announcement
                             tag="Event"
                             title="All Hands Meeting"
-                            date="Oct 25, 2:00 PM"
+                            date="Oct 25 2:06 PM"
                             desc="Join us for the quarterly all-hands meeting in the main auditorium or via Zoom. We will discuss Q4 goals."
                         />
                         <Announcement
@@ -176,7 +174,7 @@ export default function Dashboard() {
                             desc="The office AC system will undergo maintenance this weekend. Please ensure all devices are powered off."
                         />
 
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 font-medium">
                             View Archive
                         </Button>
                     </CardContent>
@@ -190,18 +188,18 @@ export default function Dashboard() {
 
 const TimeBlock = ({ value, label }) => (
     <div className="text-center">
-        <p className="text-6xl font-bold text-gray-900">{value}</p>
-        <p className="text-xs text-gray-400 uppercase tracking-wide">{label}</p>
+        <p className="text-5xl font-bold text-gray-900 tabular-nums">{value}</p>
+        <p className="text-xs text-gray-500 uppercase tracking-wider mt-1 font-medium">{label}</p>
     </div>
 );
 
 const MiniStat = ({ icon, label, value, bgColor }) => (
-    <Card>
-        <CardContent className="p-3 flex items-center gap-3">
-            <div className={`p-2 rounded-lg ${bgColor}`}>{icon}</div>
+    <Card className="shadow-sm border-gray-200">
+        <CardContent className="p-4 flex items-center gap-3">
+            <div className={`p-2.5 rounded-lg ${bgColor}`}>{icon}</div>
             <div>
-                <p className="text-xs text-gray-500">{label}</p>
-                <p className="text-xl font-bold text-gray-900">{value}</p>
+                <p className="text-xs text-gray-600 font-medium mb-0.5">{label}</p>
+                <p className="text-2xl font-bold text-gray-900">{value}</p>
             </div>
         </CardContent>
     </Card>
@@ -209,22 +207,26 @@ const MiniStat = ({ icon, label, value, bgColor }) => (
 
 const TaskItem = ({ title, meta, status, completed, onToggle }) => {
     const statusStyles = {
-        "High Priority": "bg-red-500 text-white",
-        "In Progress": "bg-blue-100 text-blue-700",
-        Pending: "bg-gray-100 text-gray-600",
-        Done: "bg-green-100 text-green-700",
+        "High Priority": "bg-red-600 text-white hover:bg-red-600 border-0",
+        "In Progress": "bg-blue-600 text-white hover:bg-blue-600 border-0",
+        Pending: "bg-gray-200 text-gray-700 hover:bg-gray-200 border-0",
+        Done: "bg-green-600 text-white hover:bg-green-600 border-0",
     };
 
     return (
-        <div className="flex items-start gap-3">
-            <Checkbox checked={completed} onCheckedChange={onToggle} className="mt-1" />
-            <div className="flex-1">
-                <p className={`text-sm font-medium ${completed ? "line-through text-gray-400" : "text-gray-900"}`}>
+        <div className="flex items-start gap-3 py-1">
+            <Checkbox 
+                checked={completed} 
+                onCheckedChange={onToggle} 
+                className="mt-1 border-gray-300 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600" 
+            />
+            <div className="flex-1 min-w-0">
+                <p className={`text-sm font-medium leading-snug ${completed ? "line-through text-gray-400" : "text-gray-900"}`}>
                     {title}
                 </p>
-                <p className="text-xs text-gray-500">{meta}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{meta}</p>
             </div>
-            <Badge className={`text-xs ${statusStyles[status]}`}>
+            <Badge className={`text-xs font-medium px-2.5 py-1 ${statusStyles[status]} whitespace-nowrap`}>
                 {status}
             </Badge>
         </div>
@@ -232,12 +234,14 @@ const TaskItem = ({ title, meta, status, completed, onToggle }) => {
 };
 
 const Announcement = ({ tag, title, date, desc }) => (
-    <div className="space-y-1">
+    <div className="space-y-2">
         <div className="flex items-center justify-between">
-            <Badge variant="outline" className="text-xs text-orange-600 border-orange-200">{tag}</Badge>
-            <span className="text-xs text-gray-400">{date}</span>
+            <Badge variant="outline" className="text-xs text-blue-600 border-blue-200 bg-blue-50 hover:bg-blue-50 font-medium px-2 py-0.5">
+                {tag}
+            </Badge>
+            <span className="text-xs text-gray-500">{date}</span>
         </div>
         <p className="font-semibold text-sm text-gray-900">{title}</p>
-        <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+        <p className="text-xs text-gray-600 leading-relaxed">{desc}</p>
     </div>
 );

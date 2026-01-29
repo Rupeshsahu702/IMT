@@ -12,6 +12,7 @@ import {
     FiSettings,
     FiHelpCircle,
     FiMessageSquare,
+    FiBell,
 } from "react-icons/fi";
 
 const Sidebar = () => {
@@ -34,7 +35,8 @@ const Sidebar = () => {
                     <SidebarItem icon={<FiFileText />} label="Leave Approvals" to="/management/leave-approval" />
                     <SidebarItem icon={<FiDollarSign />} label="Payroll" to="/management/payroll" />
                     <SidebarItem icon={<FiAward />} label="Incentives" to="/management/incentives" />
-                    <SidebarItem icon={<FiAward />} label="Project Document Management" to="/management/project-document-management" />
+                    <SidebarItem icon={<FiFileText />} label="Project Documents" to="/management/project-document-management" />
+                    <SidebarItem icon={<FiBell />} label="Announcements" to="/management/announcement" />
                     <SidebarItem icon={<FiMessageSquare />} label="Ticket Resolve" to="/management/ticket-resolve" />
                     <SidebarItem icon={<FiBarChart2 />} label="Reports" to="/management/reports" />
                     <SidebarItem icon={<FiTrendingUp />} label="Team Performance" to="/management/performance" />

@@ -14,6 +14,7 @@ import Incentives from '@/pages/management/Incentives';
 import ProjectDocumentManagement from '@/pages/management/ProjectDocumentManagement';
 import TicketResolve from '@/pages/management/TicketResolve';
 import EmployeeDetailsAdmin from '@/pages/management/EmployeeDetails';
+import GlobalAnnouncementManager from '@/pages/management/GlobalAnnouncementManager';
 
 const ManagementRoutes = () => {
     return (
@@ -31,6 +32,7 @@ const ManagementRoutes = () => {
             <Route path="performance" element={<TeamPerformance />} />
             <Route path="project-document-management" element={<ProjectDocumentManagement />} />
             <Route path="ticket-resolve" element={<TicketResolve />} />
+            <Route path="announcement" element={<GlobalAnnouncementManager />} />
         </Routes>
     );
 };
